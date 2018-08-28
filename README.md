@@ -45,6 +45,10 @@ glameow({
 });
 ```
 
+## Demo
+
+Please refer the demo repository for sample config within `.glameow` directory.
+
 ## Contributing
 
 We'd greatly appreciate any contribution you make. :D

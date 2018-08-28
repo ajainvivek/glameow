@@ -16,15 +16,33 @@ npm install glameow --save
 ## Usage as command
 
 ```sh
-npx glameow --root=path --destination=path
+# generate component
+npx glameow generate component
+
+# generate page
+npx glameow generate page
+
+# help
+npx generate --help
+
+# usage options
+-p, --path                      Component path url or default config path
+-d, --destination               Destination path url or default config path
+-w, --pwd                       Set base working directory or default to ''
+-h, --help                      Output usage information 
 ```
+
 
 ## Usage in the browser
 
 ```js
 import glameow from 'glameow';
 
-
+// generate component
+glameow({
+    destination = "src",
+	type = "component"
+});
 ```
 
 ## Contributing

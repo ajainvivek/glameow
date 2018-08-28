@@ -195,14 +195,6 @@ const glameow = function ({
 	pwd = "",
 	type = "component"
 }) {
-    if (!path) {
-        console.error("Root path is required argument!");;
-        return
-    }
-    if (!destination) {
-        console.error("Destination path is required argument!")
-        return
-    }
     const rootPath = `${pwd}/${path}/${type}`
 	const destinationPath = `${pwd}/${destination}/${type}s`
 	fs.readdir(rootPath, (err, files) => {

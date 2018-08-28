@@ -1,0 +1,73 @@
+{
+    "node": "layout",
+    "type": "container",
+    "meta": {
+        "title": "Home",
+        "description": "This is the meta description for the home page"
+    },
+    "data": {
+        "global": "this.$store.state.global"
+    },
+    "children": [
+        {
+            "node": "container",
+            "type": "header",
+            "children": [
+                {
+                    "node": "layout",
+                    "type": "col",
+                    "properties": {
+                        ":gutter": 10
+                    },
+                    "children": [{
+                        "node": "col",
+                        "type": "row",
+                        "properties": {
+                            ":xs": 12,
+                            ":sm": 8,
+                            ":md": 4,
+                            ":lg": 3,
+                            ":xl": 1
+                        },
+                        "children": [{
+                            "node": "component",
+                            "type": "appHeader",
+                            "properties": {
+                                ":global": "state.global"
+                            }
+                        }]
+                    }]
+                }
+            ]
+        },
+        {
+            "node": "container",
+            "type": "main",
+            "properties": {
+                ":gutter": 10,
+                ":style": {
+                    "backgroundColor": "#efeff4"
+                }
+            },
+            "children": [{
+                "node": "col",
+                "type": "row",
+                "properties": {
+                    ":xs": 12,
+                    ":sm": 8,
+                    ":md": 4,
+                    ":lg": 3,
+                    ":xl": 1
+                },
+                "children": [{
+                    "node": "component",
+                    "type": "button",
+                    "content": "Generated Button",
+                    "properties": {
+                        "type": "primary"
+                    }
+                }]
+            }]
+        }
+    ]
+}

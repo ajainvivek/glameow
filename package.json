@@ -1,0 +1,47 @@
+{
+  "name": "glameow",
+  "version": "0.1.1",
+  "description": "JSON based dynamic component generation",
+  "main": "dist/glameow.js",
+  "module": "dist/glameow.m.js",
+  "source": "src/index.js",
+  "repository": "ajainvivek/glameow",
+  "scripts": {
+    "build": "microbundle",
+    "prepublishOnly": "npm run build",
+    "release": "npm t && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "eslintConfig": {
+    "extends": "eslint-config-developit",
+    "rules": {
+      "prefer-spread": 0,
+      "prefer-rest-params": 0
+    }
+  },
+  "bin": {
+    "glameow": "./cli.js"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "keywords": [
+    "dynamic component",
+    "json component",
+    "vue component"
+  ],
+  "author": "Ajain Vivek <ajainvivek07@gmail.com> (http://chaicode.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^4.16.0",
+    "eslint-config-developit": "^1.1.1",
+    "microbundle": "^0.4.3"
+  },
+  "dependencies": {
+    "js-beautify": "^1.8.1",
+    "jsdom": "^12.0.0",
+    "minimist": "^1.2.0",
+    "mkdirp": "^0.5.1"
+  }
+}

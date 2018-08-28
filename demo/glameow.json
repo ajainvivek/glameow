@@ -1,0 +1,11 @@
+{
+    "container": "el-container",
+    "header": "el-header",
+    "main": "el-main",
+    "footer": "el-footer",
+    "aside": "el-aside",
+    "button": "el-button",
+    "col": "el-col",
+    "row": "el-row",
+    "appHeader": "cv-app-header"
+}

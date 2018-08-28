@@ -204,7 +204,7 @@ const glameow = function ({
         return
     }
     const rootPath = `${pwd}/${path}/${type}`
-	const destinationPath = `${pwd}/${destination}/${type}`
+	const destinationPath = `${pwd}/${destination}/${type}s`
 	fs.readdir(rootPath, (err, files) => {
 		// if single file then dont iterate over path
 		if (!files) {

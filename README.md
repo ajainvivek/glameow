@@ -41,8 +41,7 @@ import glameow from 'glameow';
 
 // generate component
 glameow({
-    destination = "src",
-	type = "component"
+	type: "component"
 });
 ```
 
@@ -50,7 +49,7 @@ glameow({
 
 The page is visualized as layout which is further broken down to containers and then to components.
 
-<img alt="layout" title="layout" src="https://github.com/ajainvivek/glameow/raw/master/assets/layouts_block_containers.png" width="353">
+<img alt="layout" title="layout" src="https://github.com/ajainvivek/glameow/raw/master/assets/layouts_block_containers.png" width="600">
 
 ```json
 {

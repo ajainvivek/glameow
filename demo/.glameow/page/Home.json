@@ -1,6 +1,6 @@
 {
     "node": "layout",
-    "type": "container",
+    "element": "container",
     "meta": {
         "title": "Home",
         "description": "This is the meta description for the home page"
@@ -11,17 +11,17 @@
     "children": [
         {
             "node": "container",
-            "type": "header",
+            "element": "header",
             "children": [
                 {
                     "node": "layout",
-                    "type": "col",
+                    "element": "col",
                     "properties": {
                         ":gutter": 10
                     },
                     "children": [{
                         "node": "col",
-                        "type": "row",
+                        "element": "row",
                         "properties": {
                             ":xs": 12,
                             ":sm": 8,
@@ -31,7 +31,7 @@
                         },
                         "children": [{
                             "node": "component",
-                            "type": "appHeader",
+                            "element": "appHeader",
                             "properties": {
                                 ":global": "state.global"
                             }
@@ -42,7 +42,7 @@
         },
         {
             "node": "container",
-            "type": "main",
+            "element": "main",
             "properties": {
                 ":gutter": 10,
                 ":style": {
@@ -51,7 +51,7 @@
             },
             "children": [{
                 "node": "col",
-                "type": "row",
+                "element": "row",
                 "properties": {
                     ":xs": 12,
                     ":sm": 8,
@@ -61,10 +61,10 @@
                 },
                 "children": [{
                     "node": "component",
-                    "type": "button",
+                    "element": "button",
                     "content": "Generated Button",
                     "properties": {
-                        "type": "primary"
+                        "element": "primary"
                     }
                 }]
             }]

@@ -10,7 +10,7 @@
 	</el-header>
 	<el-main :gutter="10" :style="{&quot;backgroundColor&quot;:&quot;#efeff4&quot;}">
 		<el-row :xs="12" :sm="8" :md="4" :lg="3" :xl="1">
-			<el-button type="primary">Generated Button</el-button>
+			<el-button element="primary">Generated Button</el-button>
 		</el-row>
 	</el-main>
 </el-container>

@@ -23,17 +23,18 @@ npx glameow generate component
 npx glameow generate page
 
 # help
-npx generate --help
+npx glameow generate --help
 
 # usage options
--p, --path                      Component path url or default config path
+-p, --path                      Component path url or default config path 
 -d, --destination               Destination path url or default config path
+-o, --overwrite                 Overwrite existing files or default is false
 -w, --pwd                       Set base working directory or default to ''
--h, --help                      Output usage information 
+-h, --help                      Output usage information
 ```
 
 
-## Usage in the browser
+## Usage in node
 
 ```js
 import glameow from 'glameow';
@@ -43,6 +44,40 @@ glameow({
     destination = "src",
 	type = "component"
 });
+```
+
+## Example JSON structure for Page
+
+The page is visualized as layout which is further broken down to containers and then to components.
+
+<img alt="layout" title="layout" src="https://github.com/ajainvivek/glameow/raw/master/assets/layouts_block_containers.png" width="353">
+
+```json
+{
+    "node": "layout",
+    "element": "div",
+    "meta": {
+        "title": "Home",
+        "description": "This is the meta description for the home page"
+    },
+    "data": {
+        "global": "Hello World"
+    },
+    "children": [
+        {
+            "node": "container",
+            "element": "div",
+            "children": [{
+                "node": "component",
+                "element": "button",
+                "content": "Generated Button",
+                "properties": {
+                    "type": "primary"
+                }
+            }]
+        }
+    ]
+}
 ```
 
 ## Demo

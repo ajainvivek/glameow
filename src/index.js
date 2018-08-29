@@ -80,7 +80,7 @@ const vueFormatter = function (text) {
 const constructTemplate = function (dom, template, root, pwd = "") {
 	const config = require(pwd + "/.glameow/config.json")
 	const alias = config.alias
-	let element = JSDOM.fragment(`<${alias[template.type] || template.type}></${alias[template.type] || template.type}>`)
+	let element = JSDOM.fragment(`<${alias[template.element] || template.element}></${alias[template.element] || template.element}>`)
 
 	// Add attributes to the element, if it exists
 	if (template.properties) {
@@ -161,11 +161,15 @@ const constructStyle = function (view, style) {
 	}
 }
 
+/**
+ * @description Generate file and write to disk
+ */
 const generateFile = function ({
 	file,
 	rootPath,
 	destinationPath,
-	pwd
+	pwd,
+	overwrite
 }) {
 	const dom = new JSDOM()
 	file = file.replace(/\.[^/.]+$/, "")
@@ -176,12 +180,16 @@ const generateFile = function ({
 	const template = constructTemplate(dom, component, true, pwd)
 	const script = constructScript(file, component.meta || {}, component.data)
 	const style = constructStyle(file, component.style || "")
+	const flag = overwrite ? {} : { flag: "wx" };
 	fileContent += template
 	fileContent += style
 	fileContent += script
 	fileContent = vueFormatter(fileContent)
-	fs.writeFile(filepath, fileContent, (err) => {
-		if (err) throw err
+	fs.writeFile(filepath, fileContent, flag, (err) => {
+		if (err) {
+			console.log(err.message)
+			return
+		}
 		console.log(`The ${file} was succesfully created!`)
 	})
 }
@@ -193,7 +201,8 @@ const glameow = function ({
     path = ".glameow",
     destination = "src",
 	pwd = "",
-	type = "component"
+	type = "component",
+	overwrite = false
 }) {
     const rootPath = `${pwd}/${path}/${type}`
 	const destinationPath = `${pwd}/${destination}/${type}s`
@@ -222,7 +231,8 @@ const glameow = function ({
 				file,
 				rootPath,
 				destinationPath,
-				pwd
+				pwd,
+				overwrite
 			})
 		})
 	})

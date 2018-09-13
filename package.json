@@ -1,6 +1,6 @@
 {
   "name": "glameow",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "JSON based dynamic component generation",
   "main": "dist/glameow.js",
   "source": "src/index.js",

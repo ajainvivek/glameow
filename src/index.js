@@ -18,7 +18,7 @@ const formatterConfig = {
 	"eol": "\n"
 }
 
-const configFile = "/.glameow/config.json"
+const configFile = ".glameow/config.json"
 
 /**
  * @description Generate the vue code block for template, style & typescript

@@ -1,16 +1,16 @@
 {
   "name": "glameow",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "JSON based dynamic component generation",
   "main": "dist/glameow.js",
   "source": "src/index.js",
   "bin": "dist/cli.js",
   "repository": "ajainvivek/glameow",
   "scripts": {
-    "build": "npm run build:cli && npm run build:glameow && npm run set:env",
-    "build:cli": "microbundle --i src/{cli,index}.js --o dist/{cli,index}.js --format cjs --compress false  --sourcemap false",
+    "build": "npm run build:cli && npm run build:glameow && npm run copy:cli",
+    "build:cli": "microbundle --i src/{cli,index}.js --o dist/index.js --format cjs --compress false  --sourcemap false",
     "build:glameow": "microbundle --i src/index.js --o dist --format cjs",
-    "set:env": "echo '#!/usr/bin/env node' | cat - dist/cli.js > temp && mv temp dist/cli.js",
+    "copy:cli": "cp src/cli.js dist",
     "prepublishOnly": "npm run build",
     "release": "npm t && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish",
     "test": "echo \"Error: no test specified\" && exit 0"

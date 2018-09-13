@@ -1,27 +1,30 @@
 {
-    "node": "layout",
-    "element": "container",
+    "node": "page",
+    "element": "div",
     "meta": {
         "title": "Home",
         "description": "This is the meta description for the home page"
     },
     "data": {
-        "global": "this.$store.state.global"
+        "global": {
+            "title": "text"
+        },
+        "inputValue": "That is cool!"
     },
     "children": [
         {
             "node": "container",
-            "element": "header",
+            "element": "div",
             "children": [
                 {
-                    "node": "layout",
-                    "element": "col",
+                    "node": "container",
+                    "element": "row",
                     "properties": {
                         ":gutter": 10
                     },
                     "children": [{
-                        "node": "col",
-                        "element": "row",
+                        "node": "container",
+                        "element": "col",
                         "properties": {
                             ":xs": 12,
                             ":sm": 8,
@@ -31,9 +34,10 @@
                         },
                         "children": [{
                             "node": "component",
-                            "element": "appHeader",
+                            "element": "input",
                             "properties": {
-                                ":global": "state.global"
+                                "v-model": "inputValue",
+                                "placeholder": "Please input"
                             }
                         }]
                     }]
@@ -42,7 +46,7 @@
         },
         {
             "node": "container",
-            "element": "main",
+            "element": "row",
             "properties": {
                 ":gutter": 10,
                 ":style": {
@@ -50,8 +54,8 @@
                 }
             },
             "children": [{
-                "node": "col",
-                "element": "row",
+                "node": "container",
+                "element": "col",
                 "properties": {
                     ":xs": 12,
                     ":sm": 8,

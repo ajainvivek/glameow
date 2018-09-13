@@ -8,6 +8,13 @@
         "button": "el-button",
         "col": "el-col",
         "row": "el-row",
-        "appHeader": "cv-app-header"
-    }    
+        "slider": "el-slider",
+        "input": "el-input"
+    },
+    "path": {
+        "destination": {
+            "page": "src/views",
+            "component": "src/components"
+        }
+    }   
 }

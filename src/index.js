@@ -18,6 +18,8 @@ const formatterConfig = {
 	"eol": "\n"
 }
 
+const configFile = "/.glameow/config.json"
+
 /**
  * @description Generate the vue code block for template, style & typescript
  *
@@ -77,8 +79,8 @@ const vueFormatter = function (text) {
  *
  * @return {String} - template string
  */
-const constructTemplate = function (dom, template, root, pwd = "") {
-	const config = require(pwd + "/.glameow/config.json")
+const constructTemplate = function (dom, template, root, cwd = "") {
+	const config = require(cwd + configFile)
 	const alias = config.alias
 	let element = JSDOM.fragment(`<${alias[template.element] || template.element}></${alias[template.element] || template.element}>`)
 
@@ -98,7 +100,7 @@ const constructTemplate = function (dom, template, root, pwd = "") {
 	// Append children, if they exist
 	if (template.children) {
 		for (let i = 0; i < template.children.length; i++) {
-			const children = constructTemplate(dom, template.children[i], false, pwd)
+			const children = constructTemplate(dom, template.children[i], false, cwd)
 			element.firstChild.appendChild(children.firstChild)
 		}
 	}
@@ -117,9 +119,10 @@ const constructTemplate = function (dom, template, root, pwd = "") {
  *
  * @param {String} view - view name
  * @param {Object} meta - meta information for the page
+ * @param {Object} data - data passed to the page
  * @return {String} - formatted vue script
  */
-const constructScript = function (view, meta) {
+const constructScript = function (view, meta, data = {}) {
 	return `
         <script>
             export default {
@@ -131,9 +134,7 @@ const constructScript = function (view, meta) {
 					}
 				},` : ''}
 				data: function () {
-					return {
-						state: this.$store.state
-					}
+					return ${JSON.stringify(data, undefined, 2)}
 				}				
             }
         </script>
@@ -168,16 +169,16 @@ const generateFile = function ({
 	file,
 	rootPath,
 	destinationPath,
-	pwd,
+	cwd,
 	overwrite
 }) {
 	const dom = new JSDOM()
 	file = file.replace(/\.[^/.]+$/, "")
 	file = file.charAt(0).toUpperCase() + file.slice(1)
-	const component = require(`${rootPath}/${file}`)
+	const component = require(`${rootPath}/${file}.json`)
 	const filepath = `${destinationPath}/${file}.vue`
 	let fileContent = ""
-	const template = constructTemplate(dom, component, true, pwd)
+	const template = constructTemplate(dom, component, true, cwd)
 	const script = constructScript(file, component.meta || {}, component.data)
 	const style = constructStyle(file, component.style || "")
 	const flag = overwrite ? {} : { flag: "wx" };
@@ -199,22 +200,24 @@ const generateFile = function ({
  */
 const glameow = function ({
     path = ".glameow",
-    destination = "src",
-	pwd = "",
+    destination = "",
+	cwd = "",
 	type = "component",
 	overwrite = false
 }) {
-    const rootPath = `${pwd}/${path}/${type}`
-	const destinationPath = `${pwd}/${destination}/${type}s`
+	const config = require(cwd + configFile)
+	destination = destination ? destination : config.path && config.path.destination && config.path.destination[type] ? config.path.destination[type] : ''
+    const rootPath = `${cwd ? cwd + '/' : ''}${path}/${type}`
+	const destinationPath = `${cwd ? cwd + '/' : ''}${destination ? destination : 'src/' + type + 's'}`
 	fs.readdir(rootPath, (err, files) => {
 		// if single file then dont iterate over path
 		if (!files) {
 			if (root !== '.glameow') {
 				generateFile({
-					file: `${pwd}/${path}`,
+					file: `${cwd ? cwd + '/' : ''}${path}`,
 					rootPath,
 					destinationPath,
-					pwd
+					cwd
 				})
 			} else {
 				console.info(`Please provide the right ${type} --path option`)
@@ -231,7 +234,7 @@ const glameow = function ({
 				file,
 				rootPath,
 				destinationPath,
-				pwd,
+				cwd,
 				overwrite
 			})
 		})

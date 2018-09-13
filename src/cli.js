@@ -37,7 +37,7 @@ if (argv._[0] !== 'generate') {
         glameow({
             path: argv.path,
             destination: argv.destination,
-            cwd: argv.cwd,
+            cwd: argv.cwd || process.cwd(),
             type: argv._[1],
             overwrite: argv.overwrite
         })

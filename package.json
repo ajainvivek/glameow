@@ -1,6 +1,6 @@
 {
   "name": "glameow",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "JSON based dynamic component generation",
   "main": "dist/glameow.js",
   "source": "src/index.js",
@@ -8,7 +8,7 @@
   "repository": "ajainvivek/glameow",
   "scripts": {
     "build": "npm run build:cli && npm run build:self",
-    "build:cli": "microbundle --i src/{cli,index}.js --o dist/{cli,index}.js --format cjs",
+    "build:cli": "microbundle --i src/{cli,index}.js --o dist/{cli,index}.js --format cjs --compress false",
     "build:self": "microbundle --i src/index.js --o dist --format cjs",
     "prepublishOnly": "npm run build",
     "release": "npm t && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish",

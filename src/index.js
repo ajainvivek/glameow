@@ -79,8 +79,7 @@ const vueFormatter = function (text) {
  *
  * @return {String} - template string
  */
-const constructTemplate = function (dom, template, root, cwd = "") {
-	const config = require(cwd + configFile)
+const constructTemplate = function (dom, template, root, config) {
 	const alias = config.alias
 	let element = JSDOM.fragment(`<${alias[template.element] || template.element}></${alias[template.element] || template.element}>`)
 
@@ -100,7 +99,7 @@ const constructTemplate = function (dom, template, root, cwd = "") {
 	// Append children, if they exist
 	if (template.children) {
 		for (let i = 0; i < template.children.length; i++) {
-			const children = constructTemplate(dom, template.children[i], false, cwd)
+			const children = constructTemplate(dom, template.children[i], false, config)
 			element.firstChild.appendChild(children.firstChild)
 		}
 	}
@@ -169,8 +168,8 @@ const generateFile = function ({
 	file,
 	rootPath,
 	destinationPath,
-	cwd,
-	overwrite
+	overwrite,
+	config = {}
 }) {
 	const dom = new JSDOM()
 	file = file.replace(/\.[^/.]+$/, "")
@@ -178,7 +177,7 @@ const generateFile = function ({
 	const component = require(`${rootPath}/${file}.json`)
 	const filepath = `${destinationPath}/${file}.vue`
 	let fileContent = ""
-	const template = constructTemplate(dom, component, true, cwd)
+	const template = constructTemplate(dom, component, true, config)
 	const script = constructScript(file, component.meta || {}, component.data)
 	const style = constructStyle(file, component.style || "")
 	const flag = overwrite ? {} : { flag: "wx" };
@@ -205,16 +204,17 @@ const glameow = function ({
 	type = "component",
 	overwrite = false
 }) {
+	cwd = `${cwd ? cwd + '/' : ''}`
 	const config = require(cwd + configFile)
 	destination = destination ? destination : config.path && config.path.destination && config.path.destination[type] ? config.path.destination[type] : ''
-    const rootPath = `${cwd ? cwd + '/' : ''}${path}/${type}`
-	const destinationPath = `${cwd ? cwd + '/' : ''}${destination ? destination : 'src/' + type + 's'}`
+    const rootPath = `${cwd}${path}/${type}`
+	const destinationPath = `${cwd}${destination ? destination : 'src/' + type + 's'}`
 	fs.readdir(rootPath, (err, files) => {
 		// if single file then dont iterate over path
 		if (!files) {
 			if (root !== '.glameow') {
 				generateFile({
-					file: `${cwd ? cwd + '/' : ''}${path}`,
+					file: `${cwd}${path}`,
 					rootPath,
 					destinationPath,
 					cwd
@@ -235,7 +235,8 @@ const glameow = function ({
 				rootPath,
 				destinationPath,
 				cwd,
-				overwrite
+				overwrite,
+				config
 			})
 		})
 	})

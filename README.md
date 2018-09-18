@@ -5,8 +5,6 @@
 </p>
 <p align="center">JSON based <b>dynamic component or page</b> generation for Vue.js.</p>
 
-<img alt="layout" title="layout" src="https://github.com/ajainvivek/glameow/raw/master/assets/layouts_block_containers.png" width="600">
-
 ## Installation
 
 Glameow is available as an [npm package](https://www.npmjs.com/package/glameow).
@@ -39,7 +37,7 @@ glameow generate --help
 
 ## Example Page
 
-Page is a template block which composes multiple container or component blocks.
+Page is a template block which composes of multiple container or component blocks.
 
 ```json
 {

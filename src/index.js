@@ -88,7 +88,9 @@ const constructTemplate = function (dom, template, root, config) {
 		const properties = Object.keys(template.properties)
 		for (let i = 0; i < properties.length; i++) {
 			let value = template.properties[properties[i]]
-			value = typeof value === "object" ? JSON.stringify(value) : value
+			value = typeof value === "object" ? Object.entries(value).reduce((styleString, [propName, propValue]) => {
+				return `${styleString}${propName}:${propValue};`;
+			  }, '') : value
 			element.firstChild.setAttribute([properties[i]], value)
 		}
 	}
@@ -122,11 +124,12 @@ const constructTemplate = function (dom, template, root, config) {
  * @return {String} - formatted vue script
  */
 const constructScript = function (view, meta, data = {}) {
+	const isEmptyMeta = Object.keys(meta).length === 0
 	return `
         <script>
             export default {
 				name: "${view}",
-                ${meta ? `meta() {
+                ${!isEmptyMeta ? `meta() {
 					return {
 						title: "${meta.title}",
 						description: "${meta.description}"

@@ -48,7 +48,7 @@ Page is a template block which composes of multiple container or component block
         "description": "This is the meta description for the home page"
     },
     "data": {
-        "global": "Hello World"
+        "inputValue": "Hello World"
     },
     "children": [
         {
@@ -56,10 +56,10 @@ Page is a template block which composes of multiple container or component block
             "element": "div",
             "children": [{
                 "node": "component",
-                "element": "button",
-                "content": "Generated Button",
+                "element": "input",
                 "properties": {
-                    "type": "primary"
+                    "placeholder": "Please input",
+                    "v-model": "inputValue"
                 }
             }]
         }
@@ -73,16 +73,19 @@ Component is a reusable block which can compose of multiple nested container or 
 
 ```json
 {
-    "node": "template",
+    "node": "component",
     "element": "div",
-    "data": {
-    },
     "children": [
         {
+            "node": "container",
             "element": "button",
             "content": "Generated Button",
             "properties": {
-                "type": "primary"
+                "style": {
+                    "height": "60px",
+                    "width": "200px",
+                    "background": "blue"
+                }
             }
         }
     ]

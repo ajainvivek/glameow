@@ -5,25 +5,29 @@
 </p>
 <p align="center">JSON based <b>dynamic component or page</b> generation for Vue.js.</p>
 
+<img alt="layout" title="layout" src="https://github.com/ajainvivek/glameow/raw/master/assets/layouts_block_containers.png" width="600">
+
 ## Installation
 
 Glameow is available as an [npm package](https://www.npmjs.com/package/glameow).
 
 ```sh
-npm install glameow --save
+npm install glameow -g
 ```
 
 ## Usage as command
 
 ```sh
 # generate component
-npx glameow generate component
+glameow generate component
 
 # generate page
-npx glameow generate page
+glameow generate page
 
 # help
-npx glameow generate --help
+glameow generate --help
+
+# or skip installation and use via npx
 
 # usage options
 -p, --path                      Component path url or default config path 
@@ -33,27 +37,13 @@ npx glameow generate --help
 -h, --help                      Output usage information
 ```
 
+## Example Page
 
-## Usage in node
-
-```js
-import glameow from 'glameow';
-
-// generate component
-glameow({
-	type: "component"
-});
-```
-
-## Example JSON structure for Page
-
-The page is visualized as layout which is further broken down to containers and then to components.
-
-<img alt="layout" title="layout" src="https://github.com/ajainvivek/glameow/raw/master/assets/layouts_block_containers.png" width="600">
+Page is a template block which composes multiple container or component blocks.
 
 ```json
 {
-    "node": "layout",
+    "node": "page",
     "element": "div",
     "meta": {
         "title": "Home",
@@ -74,6 +64,28 @@ The page is visualized as layout which is further broken down to containers and 
                     "type": "primary"
                 }
             }]
+        }
+    ]
+}
+```
+
+## Example Component
+
+Component is a reusable block which can compose of multiple nested container or component blocks.
+
+```json
+{
+    "node": "template",
+    "element": "div",
+    "data": {
+    },
+    "children": [
+        {
+            "element": "button",
+            "content": "Generated Button",
+            "properties": {
+                "type": "primary"
+            }
         }
     ]
 }

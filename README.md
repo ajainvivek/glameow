@@ -35,6 +35,25 @@ glameow generate --help
 -h, --help                      Output usage information
 ```
 
+## Example Component
+
+Component is a reusable block which can compose of multiple nested container or component blocks.
+
+```json
+{
+    "node": "component",
+    "element": "button",
+    "content": "Generated Button",
+    "properties": {
+        "style": {
+            "height": "60px",
+            "width": "200px",
+            "background": "blue"
+        }
+    }
+}
+```
+
 ## Example Page
 
 Page is a template block which composes of multiple container or component blocks.
@@ -62,31 +81,6 @@ Page is a template block which composes of multiple container or component block
                     "v-model": "inputValue"
                 }
             }]
-        }
-    ]
-}
-```
-
-## Example Component
-
-Component is a reusable block which can compose of multiple nested container or component blocks.
-
-```json
-{
-    "node": "component",
-    "element": "div",
-    "children": [
-        {
-            "node": "container",
-            "element": "button",
-            "content": "Generated Button",
-            "properties": {
-                "style": {
-                    "height": "60px",
-                    "width": "200px",
-                    "background": "blue"
-                }
-            }
         }
     ]
 }

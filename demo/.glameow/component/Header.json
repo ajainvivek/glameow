@@ -151,7 +151,7 @@
                                 "node": "container",
                                 "element": "img",
                                 "properties": {
-                                    "class": "userinfo-inner",
+                                    "class": "userinfo-image",
                                     "src": "https://ksassets.timeincuk.net/wp/uploads/sites/55/2016/07/2437349-pikachu-1.png",
                                     "style": {
                                         "width": "40px",

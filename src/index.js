@@ -99,10 +99,16 @@ const constructTemplate = function (dom, template, root, config) {
 		const properties = Object.keys(template.properties)
 		for (let i = 0; i < properties.length; i++) {
 			let value = template.properties[properties[i]]
-			// Assuming only style property is passed as an object 
-			value = typeof value === "object" ? Object.entries(value).reduce((styleString, [propName, propValue]) => {
-				return `${styleString}${camelCaseToDash(propName)}:${propValue};`;
-			  }, '') : value
+			if (properties[i] === 'style') {
+				if (!template.properties['class']) {
+					// Assuming only style property is passed as an object 
+					value = typeof value === "object" ? Object.entries(value).reduce((styleString, [propName, propValue]) => {
+						return `${styleString}${camelCaseToDash(propName)}:${propValue};`;
+					}, '') : value
+				} else {
+					value = ""	
+				}
+			}
 			element.firstChild.setAttribute([properties[i]], value)
 		}
 	}
@@ -162,18 +168,38 @@ const constructScript = function (view, meta, data = {}) {
  * @param {String} style - style specific to the view
  * @return {String} - formatted style code
  */
-const constructStyle = function (view, style) {
-	if (style) {
-		return `
-			<style lang="scss" scoped>
-				.${view} {
-					${style}
-				}
-			</style>	
-		`
-	} else {
-		return ""
+const constructStyle = function (template, style = '', root = true) {
+	// Add attributes to the element, if it exists
+	if (template.properties) {
+		const properties = Object.keys(template.properties)
+		for (let i = 0; i < properties.length; i++) {
+			let value = template.properties[properties[i]]
+			let className = template.properties['class']
+			if (properties[i] === 'style' && className) {
+				// Assuming only style property is passed as an object 
+				value = typeof value === "object" ? Object.entries(value).reduce((styleString, [propName, propValue]) => {
+					return `${styleString}${camelCaseToDash(propName)}:${propValue};`;
+				}, '') : value
+				style += `.${className}{${value}}` 
+			}
+		}
 	}
+	// Append children, if they exist
+	if (template.children) {
+		for (let i = 0; i < template.children.length; i++) {
+			let value = constructStyle(template.children[i], style, false)
+			style = value
+		}
+	}
+
+	// if root element then wrap the template
+	if (root) {
+		return `
+			<style scoped>${style}</style>	
+		`
+	}
+
+	return style
 }
 
 /**
@@ -195,8 +221,8 @@ const generateFile = function ({
 	const destination = `${destinationPath}/${file}.vue`
 	let fileContent = ""
 	const template = constructTemplate(dom, component, true, config)
+	const style = constructStyle(component, '', true)	
 	const script = constructScript(file, component.meta || {}, component.data)
-	const style = constructStyle(file, component.style || "")
 	const flag = overwrite ? {} : { flag: "wx" };
 	fileContent += template
 	fileContent += style

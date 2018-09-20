@@ -17,15 +17,17 @@
                         "style": {
                             "height": "60px",
                             "lineHeight": "60px",
-                            "background": "blue",
-                            "color": "#fff"
+                            "background": "#fff",
+                            "color": "#314659",
+                            "boxShadow": "0 2px 8px #f0f1f2",
+                            "zIndex": "10"
                         }
                     },
                     "children": [{
                         "node": "container",
                         "element": "col",
                         "properties": {
-                            ":span": "10",
+                            ":span": "8",
                             "class": "logo",
                             "style": {
                                 "width": "230px",
@@ -33,7 +35,7 @@
                                 "fontSize": "22px",
                                 "paddingLeft": "20px",
                                 "paddingRight": "20px",
-                                "borderColor": "rgba(238,241,146,0.3)",
+                                "borderColor": "rgba(168, 169, 161, 0.3)",
                                 "borderRightWidth": "1px",
                                 "borderRightStyle": "solid"
                             }
@@ -41,18 +43,13 @@
                         "children": [{
                             "node": "container",
                             "element": "span",
-                            "content": "glameow",
-                            "properties": {
-                                "style": {
-                                    "color": "#fff"
-                                }
-                            }
+                            "content": "glameow"
                         }]
                     }, {
                         "node": "container",
                         "element": "col",
                         "properties": {
-                            ":span": "4",
+                            ":span": "6",
                             ":offset": "10",
                             "class": "userinfo",
                             "style": {
@@ -62,31 +59,86 @@
                             }
                         },
                         "children": [{
-                            "node": "container",
-                            "element": "span",
-                            "content": "Ajain",
+                            "node": "component",
+                            "element": "menu",
                             "properties": {
-                                "class": "userinfo-inner",
-                                "style": {
-                                    "color": "#fff"
-                                }
+                                "mode": "horizontal"
                             },
-                            "children": [{
-                                "node": "container",
-                                "element": "img",
-                                "content": "Ajain",
-                                "properties": {
-                                    "class": "userinfo-inner",
-                                    "src": "https://avatars0.githubusercontent.com/u/1182600?s=40",
-                                    "style": {
-                                        "width": "40px",
-                                        "height": "40px",
-                                        "borderRadius": "20px",
-                                        "margin": "10px 0px 10px 10px",
-                                        "float": "right"
-                                    }
+                            "children": [
+                                {
+                                    "node": "component",
+                                    "element": "menuItem",
+                                    "properties": {
+                                        "index": "1"
+                                    },
+                                    "children": [{
+                                        "node": "component",
+                                        "element": "link",
+                                        "content": "Home",
+                                        "properties": {
+                                            "to": "/",
+                                            "style": {
+                                                "display": "block",
+                                                "height": "60px",
+                                                "lineHeight": "60px",
+                                                "textDecoration": "none"
+                                            }
+                                        }
+                                    }]
+                                },
+                                {
+                                    "node": "component",
+                                    "element": "menuItem",
+                                    "properties": {
+                                        "index": "2"
+                                    },
+                                    "children": [{
+                                        "node": "component",
+                                        "element": "link",
+                                        "content": "About",
+                                        "properties": {
+                                            "to": "/about",
+                                            "style": {
+                                                "display": "block",
+                                                "height": "60px",
+                                                "lineHeight": "60px",
+                                                "textDecoration": "none"
+                                            }
+                                        }
+                                    }]
+                                },
+                                {
+                                    "node": "component",
+                                    "element": "menuItem",
+                                    "properties": {
+                                        "index": "3"
+                                    },
+                                    "children": [{
+                                        "node": "container",
+                                        "element": "span",
+                                        "content": "Ajain",
+                                        "properties": {
+                                            "class": "userinfo-inner"
+                                        },
+                                        "children": [{
+                                            "node": "container",
+                                            "element": "img",
+                                            "content": "Ajain",
+                                            "properties": {
+                                                "class": "userinfo-inner",
+                                                "src": "https://avatars0.githubusercontent.com/u/1182600?s=40",
+                                                "style": {
+                                                    "width": "40px",
+                                                    "height": "40px",
+                                                    "borderRadius": "20px",
+                                                    "margin": "10px 0px 10px 10px",
+                                                    "float": "right"
+                                                }
+                                            }
+                                        }]
+                                    }]
                                 }
-                            }]
+                            ]
                         }]
                     }]
                 }

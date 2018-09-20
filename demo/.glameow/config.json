@@ -9,7 +9,10 @@
         "col": "el-col",
         "row": "el-row",
         "slider": "el-slider",
-        "input": "el-input"
+        "input": "el-input",
+        "menu": "el-menu",
+        "menuItem": "el-menu-item",
+        "link": "router-link"
     },
     "path": {
         "destination": {

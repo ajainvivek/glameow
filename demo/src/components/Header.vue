@@ -2,10 +2,19 @@
 <template>
 <el-row>
 	<el-row>
-		<el-col :span="24" class="header" style="height:60px;line-height:60px;background:blue;color:#fff;">
-			<el-col :span="10" class="logo" style="width:230px;height:60px;font-size:22px;padding-left:20px;padding-right:20px;border-color:rgba(238,241,146,0.3);border-right-width:1px;border-right-style:solid;"><span style="color:#fff;">glameow</span></el-col>
-			<el-col :span="4" :offset="10" class="userinfo" style="text-align:right;padding-right:35px;float:right;"><span class="userinfo-inner" style="color:#fff;">Ajain<img class="userinfo-inner" src="https://avatars0.githubusercontent.com/u/1182600?s=40"
-					  style="width:40px;height:40px;border-radius:20px;margin:10px 0px 10px 10px;float:right;"></span></el-col>
+		<el-col :span="24" class="header" style="height:60px;line-height:60px;background:#fff;color:#314659;box-shadow:0 2px 8px #f0f1f2;z-index:10;">
+			<el-col :span="8" class="logo" style="width:230px;height:60px;font-size:22px;padding-left:20px;padding-right:20px;border-color:rgba(168, 169, 161, 0.3);border-right-width:1px;border-right-style:solid;"><span>glameow</span></el-col>
+			<el-col :span="6" :offset="10" class="userinfo" style="text-align:right;padding-right:35px;float:right;">
+				<el-menu mode="horizontal">
+					<el-menu-item index="1">
+						<router-link to="/" style="display:block;height:60px;line-height:60px;text-decoration:none;">Home</router-link>
+					</el-menu-item>
+					<el-menu-item index="2">
+						<router-link to="/about" style="display:block;height:60px;line-height:60px;text-decoration:none;">About</router-link>
+					</el-menu-item>
+					<el-menu-item index="3"><span class="userinfo-inner">Ajain<img class="userinfo-inner" src="https://avatars0.githubusercontent.com/u/1182600?s=40" style="width:40px;height:40px;border-radius:20px;margin:10px 0px 10px 10px;float:right;"></span></el-menu-item>
+				</el-menu>
+			</el-col>
 		</el-col>
 	</el-row>
 </el-row>

@@ -109,6 +109,10 @@ const constructTemplate = function (dom, template, root, config) {
 					value = ""	
 				}
 			}
+			// if property is array of classes 
+			if (properties[i] === 'class' && Array.isArray(value)) {
+				value = value.join(' ')
+			}
 			element.firstChild.setAttribute([properties[i]], value)
 		}
 	}
@@ -180,7 +184,13 @@ const constructStyle = function (template, style = '', root = true) {
 				value = typeof value === "object" ? Object.entries(value).reduce((styleString, [propName, propValue]) => {
 					return `${styleString}${camelCaseToDash(propName)}:${propValue};`;
 				}, '') : value
-				style += `.${className}{${value}}` 
+				// if array of classes
+				if(Array.isArray(className)) {
+					className = className.map((cls) => `.${cls}`).join('')
+					style += `${className}{${value}}` 
+				} else {
+					style += `.${className}{${value}}` 
+				}
 			}
 		}
 	}

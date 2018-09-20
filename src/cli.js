@@ -4,7 +4,7 @@ var argv = require('minimist')(process.argv.slice(2), {
     boolean: ['help'],
     alias: {
         h: 'help',
-        p: 'path',
+        p: 'filepath',
         d: 'destination',
         o: 'overwrite',
         c: 'cwd',
@@ -13,6 +13,7 @@ var argv = require('minimist')(process.argv.slice(2), {
 })
 var glameow = require('.')
 var chokidar = require('chokidar')
+var configBasePath = ".glameow"
 
 /**
  * @description watch for file changes and update the page/component
@@ -22,11 +23,10 @@ var chokidar = require('chokidar')
  */
 var watchFileChanges = function ({
     argv,
-    cwd,
-    path
+    cwd
 }) {
     console.info('glameow watching for file changes...');    
-    var pattern = `${cwd}/${path}/**/*.json`;
+    var pattern = `${cwd}/${configBasePath}/**/*.json`;
     chokidar.watch(pattern, {
         persistent: true,
         ignoreInitial: true
@@ -40,12 +40,11 @@ var watchFileChanges = function ({
         }
         if (search('component', path) || search('page', path)) {
             glameow({
-                path: argv.path,
                 destination: argv.destination,
                 cwd,
                 type: search('component', path) ? 'component' : 'page',
                 overwrite: true,
-                componentPath: path
+                filepath: path
             })
         }
     });
@@ -60,7 +59,7 @@ if (argv._[0] === 'generate' && argv.help) {
         Options:
 
             -h, --help                      Output usage information
-            -p, --path                      Component path url or default config path 
+            -p, --filepath                      Component path url or default config path 
             -d, --destination               Destination path url or default config path
             -o, --overwrite                 Overwrite existing files or default is false
             -c, --cwd                       Set base working directory or default to 'process.cwd()'
@@ -75,35 +74,34 @@ if (argv._[0] !== 'generate') {
 } else {
     if (argv._[1] === 'component' || argv._[1] === 'page' || argv._[1] === undefined) {
         var cwd = argv.cwd || process.cwd();
-        var path = argv.path || '.glameow';
+        var filepath = argv.filepath ? `${cwd}/${argv.filepath}` : '';
         if (argv.watch) {
             watchFileChanges({
                 argv,
-                cwd,
-                path
+                cwd
             });
             return;
         }
         if (argv._[1] !== undefined) {
             glameow({
-                path: argv.path,
+                filepath,
                 destination: argv.destination,
-                cwd: cwd,
+                cwd,
                 type: argv._[1],
                 overwrite: argv.overwrite
             })
         } else {
             glameow({
-                path: argv.path,
+                filepath,
                 destination: argv.destination,
-                cwd: cwd,
+                cwd,
                 type: 'component',
                 overwrite: argv.overwrite
             })
             glameow({
-                path: argv.path,
+                filepath,
                 destination: argv.destination,
-                cwd: argv.cwd || process.cwd(),
+                cwd,
                 type: 'page',
                 overwrite: argv.overwrite
             })

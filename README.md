@@ -3,7 +3,7 @@
 <img alt="Glameow" title="Glameow" src="https://github.com/ajainvivek/glameow/raw/master/assets/logo.png" height="200">
 </a>
 </p>
-<p align="center">JSON based <b>dynamic component or page</b> generation for Vue.js.</p>
+<p align="center">CLI based <b>dynamic component or page</b> generation for Vue.js.</p>
 
 ## Installation
 
@@ -31,8 +31,8 @@ glameow generate --help
 # or skip installation and use via npx
 
 # usage options
--p, --path                      Component path url or default config path 
--d, --destination               Destination path url or default config path
+-p, --filepath                  File path url for component or page
+-d, --destination               Destination path url
 -o, --overwrite                 Overwrite existing files or default is false
 -c, --cwd                       Set base working directory or default to 'process.cwd()'
 -w, --watch                     Watch for file changes and update component/page instantaneously

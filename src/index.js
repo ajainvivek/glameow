@@ -18,7 +18,8 @@ const formatterConfig = {
 	"eol": "\n"
 }
 
-const configFile = ".glameow/config.json"
+const configBasePath = ".glameow"
+const configFile = `${configBasePath}/config.json`
 
 /**
  * @description Generate the vue code block for template, style & typescript
@@ -184,14 +185,14 @@ const generateFile = function ({
 	destinationPath,
 	overwrite,
 	config = {},
-	componentPath
+	filepath
 }) {
 	const dom = new JSDOM()
 	file = file.replace(/\.[^/.]+$/, "")
 	file = file.charAt(0).toUpperCase() + file.slice(1)
-	componentPath = componentPath || `${rootPath}/${file}.json`
-	const component = require(componentPath)
-	const filepath = `${destinationPath}/${file}.vue`
+	filepath = filepath || `${rootPath}/${file}.json`
+	const component = require(filepath)
+	const destination = `${destinationPath}/${file}.vue`
 	let fileContent = ""
 	const template = constructTemplate(dom, component, true, config)
 	const script = constructScript(file, component.meta || {}, component.data)
@@ -202,7 +203,7 @@ const generateFile = function ({
 	fileContent += script
 	fileContent = vueFormatter(fileContent)
 	let isFileExists = fs.existsSync(filepath)
-	fs.writeFile(filepath, fileContent, flag, (err) => {
+	fs.writeFile(destination, fileContent, flag, (err) => {
 		if (err) {
 			console.log(err.message)
 			return
@@ -215,15 +216,15 @@ const generateFile = function ({
  * @description generate component/page
  */
 const generate = function({
-	path,
 	cwd,
 	config,
 	type,
 	destination,
-	overwrite
+	overwrite,
+	componentPath
 }){
 	destination = destination ? destination : config.path && config.path.destination && config.path.destination[type] ? config.path.destination[type] : ''
-    const rootPath = `${cwd}${path}/${type}`
+    const rootPath = `${cwd}${configBasePath}/${type}`
 	const destinationPath = `${cwd}${destination ? destination : 'src/' + type + 's'}`
 
 	fs.readdir(rootPath, (err, files) => {
@@ -263,24 +264,22 @@ const generate = function({
  * @description glameow
  */
 const glameow = function ({
-    path = ".glameow",
     destination = "",
 	cwd = "",
 	type = "component",
 	overwrite = false,
-	componentPath
+	filepath
 }) {
 	cwd = `${cwd ? cwd + '/' : ''}`
 	const config = require(cwd + configFile)
 
 	generate({
-		path,
 		cwd,
 		config,
 		type,
 		destination,
 		overwrite,
-		componentPath
+		filepath
 	});
 }
 

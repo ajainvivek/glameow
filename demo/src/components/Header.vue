@@ -3,17 +3,19 @@
 <el-row>
 	<el-row>
 		<el-col :span="24" class="header" style="height:60px;line-height:60px;background:#fff;color:#314659;box-shadow:0 2px 8px #f0f1f2;z-index:10;">
-			<el-col :span="8" class="logo" style="width:230px;height:60px;font-size:22px;padding-left:20px;padding-right:20px;border-color:rgba(168, 169, 161, 0.3);border-right-width:1px;border-right-style:solid;"><span>glameow</span></el-col>
-			<el-col :span="6" :offset="10" class="userinfo" style="text-align:right;padding-right:35px;float:right;">
-				<el-menu mode="horizontal">
+			<el-col :span="6" class="logo" style="width:230px;height:60px;font-size:22px;padding-left:20px;padding-right:20px;border-color:rgba(168, 169, 161, 0.3);border-right-width:1px;border-right-style:solid;"><span>glameow</span></el-col>
+			<el-col :span="8" :offset="10" class="userinfo" style="text-align:right;padding-right:35px;float:right;height:60px;">
+				<el-menu mode="horizontal" style="display:inline-block;">
 					<el-menu-item index="1">
 						<router-link to="/" style="display:block;height:60px;line-height:60px;text-decoration:none;">Home</router-link>
 					</el-menu-item>
 					<el-menu-item index="2">
 						<router-link to="/about" style="display:block;height:60px;line-height:62px;text-decoration:none;">About</router-link>
 					</el-menu-item>
-					<el-menu-item index="3"><span class="userinfo-inner">Ajain<img class="userinfo-inner" src="https://avatars0.githubusercontent.com/u/1182600?s=40" style="width:40px;height:40px;border-radius:20px;margin:10px 0px 10px 10px;float:right;"></span></el-menu-item>
+					<el-menu-item index="3"><a href="https://github.com/ajainvivek/glameow" style="display:block;height:60px;line-height:60px;text-decoration:none;">Github</a></el-menu-item>
 				</el-menu>
+				<div class="userinfo-inner" style="display:inline-block;float:right;border-left:1px solid #ccc;padding:0 20px;font-size:14px;">Pikachu<img class="userinfo-inner" src="https://ksassets.timeincuk.net/wp/uploads/sites/55/2016/07/2437349-pikachu-1.png"
+					  style="width:40px;height:40px;border-radius:20px;margin:10px 0px 10px 10px;float:right;"></div>
 			</el-col>
 		</el-col>
 	</el-row>

@@ -12,6 +12,8 @@
         "input": "el-input",
         "menu": "el-menu",
         "menuItem": "el-menu-item",
+        "carousel": "el-carousel",
+        "carouselItem": "el-carousel-item",
         "link": "router-link"
     },
     "path": {

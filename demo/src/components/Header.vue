@@ -10,7 +10,7 @@
 						<router-link to="/" style="display:block;height:60px;line-height:60px;text-decoration:none;">Home</router-link>
 					</el-menu-item>
 					<el-menu-item index="2">
-						<router-link to="/about" style="display:block;height:60px;line-height:60px;text-decoration:none;">About</router-link>
+						<router-link to="/about" style="display:block;height:60px;line-height:62px;text-decoration:none;">About</router-link>
 					</el-menu-item>
 					<el-menu-item index="3"><span class="userinfo-inner">Ajain<img class="userinfo-inner" src="https://avatars0.githubusercontent.com/u/1182600?s=40" style="width:40px;height:40px;border-radius:20px;margin:10px 0px 10px 10px;float:right;"></span></el-menu-item>
 				</el-menu>

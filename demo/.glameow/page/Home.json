@@ -68,7 +68,7 @@
                 "children": [{
                     "node": "component",
                     "element": "button",
-                    "content": "Generated Button",
+                    "content": "Button",
                     "properties": {
                         "element": "primary"
                     }

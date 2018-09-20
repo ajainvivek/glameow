@@ -10,7 +10,7 @@
 	</div>
 	<el-row :gutter="10">
 		<el-col :xs="12" :sm="8" :md="4" :lg="3" :xl="1">
-			<el-button element="primary">Generated Button</el-button>
+			<el-button element="primary">Button</el-button>
 		</el-col>
 	</el-row>
 </div>

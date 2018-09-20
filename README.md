@@ -16,6 +16,9 @@ npm install glameow -g
 ## Usage as command
 
 ```sh
+# generate component and page
+glameow generate
+
 # generate component
 glameow generate component
 
@@ -31,7 +34,7 @@ glameow generate --help
 -p, --path                      Component path url or default config path 
 -d, --destination               Destination path url or default config path
 -o, --overwrite                 Overwrite existing files or default is false
--w, --pwd                       Set base working directory or default to ''
+-c, --cwd                       Set base working directory or default to ''
 -h, --help                      Output usage information
 ```
 

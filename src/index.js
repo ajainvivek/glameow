@@ -183,12 +183,14 @@ const generateFile = function ({
 	rootPath,
 	destinationPath,
 	overwrite,
-	config = {}
+	config = {},
+	componentPath
 }) {
 	const dom = new JSDOM()
 	file = file.replace(/\.[^/.]+$/, "")
 	file = file.charAt(0).toUpperCase() + file.slice(1)
-	const component = require(`${rootPath}/${file}.json`)
+	componentPath = componentPath || `${rootPath}/${file}.json`
+	const component = require(componentPath)
 	const filepath = `${destinationPath}/${file}.vue`
 	let fileContent = ""
 	const template = constructTemplate(dom, component, true, config)
@@ -199,30 +201,31 @@ const generateFile = function ({
 	fileContent += style
 	fileContent += script
 	fileContent = vueFormatter(fileContent)
+	let isFileExists = fs.existsSync(filepath)
 	fs.writeFile(filepath, fileContent, flag, (err) => {
 		if (err) {
 			console.log(err.message)
 			return
 		}
-		console.log(`The ${file} was succesfully created!`)
+		console.info(`The ${file} was succesfully ${isFileExists ? 'updated': 'created'}!`)
 	})
 }
 
 /**
- * @description glameow
+ * @description generate component/page
  */
-const glameow = function ({
-    path = ".glameow",
-    destination = "",
-	cwd = "",
-	type = "component",
-	overwrite = false
-}) {
-	cwd = `${cwd ? cwd + '/' : ''}`
-	const config = require(cwd + configFile)
+const generate = function({
+	path,
+	cwd,
+	config,
+	type,
+	destination,
+	overwrite
+}){
 	destination = destination ? destination : config.path && config.path.destination && config.path.destination[type] ? config.path.destination[type] : ''
     const rootPath = `${cwd}${path}/${type}`
 	const destinationPath = `${cwd}${destination ? destination : 'src/' + type + 's'}`
+
 	fs.readdir(rootPath, (err, files) => {
 		// if single file then dont iterate over path
 		if (!files) {
@@ -231,7 +234,8 @@ const glameow = function ({
 					file: `${cwd}${path}`,
 					rootPath,
 					destinationPath,
-					cwd
+					cwd,
+					componentPath
 				})
 			} else {
 				console.info(`Please provide the right ${type} --path option`)
@@ -242,7 +246,6 @@ const glameow = function ({
 		files.forEach((file) => {
 			mkdirp(destinationPath, (err) => {
 				if (err) console.error(err)
-				else console.log(`created directory ${destinationPath}`)
 			})
 			generateFile({
 				file,
@@ -254,6 +257,31 @@ const glameow = function ({
 			})
 		})
 	})
+}
+
+/**
+ * @description glameow
+ */
+const glameow = function ({
+    path = ".glameow",
+    destination = "",
+	cwd = "",
+	type = "component",
+	overwrite = false,
+	componentPath
+}) {
+	cwd = `${cwd ? cwd + '/' : ''}`
+	const config = require(cwd + configFile)
+
+	generate({
+		path,
+		cwd,
+		config,
+		type,
+		destination,
+		overwrite,
+		componentPath
+	});
 }
 
 module.exports = glameow

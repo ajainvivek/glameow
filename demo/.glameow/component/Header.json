@@ -16,7 +16,7 @@
                         "class": "header",
                         "style": {
                             "height": "60px",
-                            "line-height": "60px",
+                            "lineHeight": "60px",
                             "background": "blue",
                             "color": "#fff"
                         }
@@ -30,12 +30,12 @@
                             "style": {
                                 "width": "230px",
                                 "height":"60px",
-                                "font-size": "22px",
-                                "padding-left": "20px",
-                                "padding-right": "20px",
-                                "border-color": "rgba(238,241,146,0.3)",
-                                "border-right-width": "1px",
-                                "border-right-style": "solid"
+                                "fontSize": "22px",
+                                "paddingLeft": "20px",
+                                "paddingRight": "20px",
+                                "borderColor": "rgba(238,241,146,0.3)",
+                                "borderRightWidth": "1px",
+                                "borderRightStyle": "solid"
                             }
                         },
                         "children": [{
@@ -56,8 +56,8 @@
                             ":offset": "10",
                             "class": "userinfo",
                             "style": {
-                                "text-align": "right",
-                                "padding-right": "35px",
+                                "textAlign": "right",
+                                "paddingRight": "35px",
                                 "float": "right"
                             }
                         },
@@ -81,7 +81,7 @@
                                     "style": {
                                         "width": "40px",
                                         "height": "40px",
-                                        "border-radius": "20px",
+                                        "borderRadius": "20px",
                                         "margin": "10px 0px 10px 10px",
                                         "float": "right"
                                     }

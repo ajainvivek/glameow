@@ -71,6 +71,16 @@ const vueFormatter = function (text) {
 }
 
 /**
+ * @description convert camelcase to dash
+ *
+ * @param {String} text - camelcase string to be dasherized
+ * @return {String} - dasherized string
+ */
+const camelCaseToDash = function (myStr) {
+    return myStr.replace( /([a-z])([A-Z])/g, '$1-$2' ).toLowerCase();
+}
+
+/**
  * @description Construct vue template from the json lookup
  *
  * @param {Object} dom - jsfom reference
@@ -88,8 +98,9 @@ const constructTemplate = function (dom, template, root, config) {
 		const properties = Object.keys(template.properties)
 		for (let i = 0; i < properties.length; i++) {
 			let value = template.properties[properties[i]]
+			// Assuming only style property is passed as an object 
 			value = typeof value === "object" ? Object.entries(value).reduce((styleString, [propName, propValue]) => {
-				return `${styleString}${propName}:${propValue};`;
+				return `${styleString}${camelCaseToDash(propName)}:${propValue};`;
 			  }, '') : value
 			element.firstChild.setAttribute([properties[i]], value)
 		}

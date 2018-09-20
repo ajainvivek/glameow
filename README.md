@@ -48,7 +48,7 @@ Component is a reusable block which can compose of multiple nested container or 
         "style": {
             "height": "60px",
             "width": "200px",
-            "background": "blue"
+            "backgroundColor": "blue"
         }
     }
 }

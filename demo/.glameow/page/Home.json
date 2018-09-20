@@ -11,6 +11,11 @@
         },
         "inputValue": "That is cool!"
     },
+    "properties": {
+        "style": {
+            "backgroundColor": "#efeff4"
+        }
+    },
     "children": [
         {
             "node": "container",
@@ -48,10 +53,7 @@
             "node": "container",
             "element": "row",
             "properties": {
-                ":gutter": 10,
-                ":style": {
-                    "backgroundColor": "#efeff4"
-                }
+                ":gutter": 10
             },
             "children": [{
                 "node": "container",

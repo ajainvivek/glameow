@@ -34,7 +34,8 @@ glameow generate --help
 -p, --path                      Component path url or default config path 
 -d, --destination               Destination path url or default config path
 -o, --overwrite                 Overwrite existing files or default is false
--c, --cwd                       Set base working directory or default to ''
+-c, --cwd                       Set base working directory or default to 'process.cwd()'
+-w, --watch                     Watch for file changes and update component/page instantaneously
 -h, --help                      Output usage information
 ```
 

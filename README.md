@@ -3,9 +3,8 @@
 <img alt="Glameow" title="Glameow" src="https://github.com/ajainvivek/glameow/raw/master/assets/logo.png" height="200">
 </a>
 </p>
-<p align="center">CLI based <b>dynamic component or page</b> generation for Vue.js.</p>
+<p align="center">CLI based <b>dynamic component or page</b> generation for Vue.js. No HTML or CSS just JSON to create UI. [DEMO](https://glameow.netlify.com/#/) site created by glameow.</p>
 
-No HTML or CSS just JSON to create UI. [DEMO](https://glameow.netlify.com/#/) site created by glameow.
 
 ## Installation
 

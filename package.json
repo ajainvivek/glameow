@@ -12,6 +12,7 @@
     "build:glameow": "microbundle --i src/index.js --o dist --format cjs",
     "copy:cli": "cp src/cli.js dist",
     "prepublishOnly": "npm run build",
+    "gh-pages": "cd demo && npm run build && ./../node_modules/.bin/gh-pages -d dist",
     "release": "npm t && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
@@ -36,6 +37,7 @@
   "devDependencies": {
     "eslint": "^4.16.0",
     "eslint-config-developit": "^1.1.1",
+    "gh-pages": "^2.0.0",
     "microbundle": "^0.4.3"
   },
   "dependencies": {

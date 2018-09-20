@@ -5,6 +5,8 @@
 </p>
 <p align="center">CLI based <b>dynamic component or page</b> generation for Vue.js.</p>
 
+No HTML or CSS just JSON to create UI. [DEMO](https://glameow.netlify.com/#/) site created by glameow.
+
 ## Installation
 
 Glameow is available as an [npm package](https://www.npmjs.com/package/glameow).

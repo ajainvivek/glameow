@@ -59,7 +59,7 @@ if (argv._[0] === 'generate' && argv.help) {
         Options:
 
             -h, --help                      Output usage information
-            -p, --filepath                      Component path url or default config path 
+            -p, --filepath                  Component path url or default config path 
             -d, --destination               Destination path url or default config path
             -o, --overwrite                 Overwrite existing files or default is false
             -c, --cwd                       Set base working directory or default to 'process.cwd()'

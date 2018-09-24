@@ -46,7 +46,7 @@ function getCode (code, block, expReg) {
 				return match[0] + "\n" + beautify.css(split[2], formatterConfig) + "\n" + match[1]
 			}
 		} else {
-			if (split[1] === undefined || split[1] === "TypeScript") {
+			if (split[1] === undefined || split[1] === "typescript") {
 				return match[0] + "\n" + beautify(split[2], formatterConfig) + "\n" + match[1]
 			}
 		}
@@ -138,6 +138,27 @@ const constructTemplate = function (dom, template, root, config) {
 }
 
 /**
+ * @description typeof variable
+ *
+ * @param {Any} text - value to be passed
+ * @return {String} - typeof the value
+ */
+const typeOf = function (value) {
+	let type = 'any'
+	
+	if (typeof value === 'object') {
+		if (Array.isArray(value)) {
+			type = 'array'
+		} else if (Object.keys(value).length > 0) {
+			type = 'object'
+		} 
+	} else {
+		type = typeof value
+	}
+	return type
+}
+
+/**
  * @description Construct the vue script
  *
  * @param {String} view - view name
@@ -145,19 +166,52 @@ const constructTemplate = function (dom, template, root, config) {
  * @param {Object} data - data passed to the page
  * @return {String} - formatted vue script
  */
-const constructScript = function (view, meta, data = {}) {
+const constructScript = function (view, meta, data = {}, options) {
 	const isEmptyMeta = Object.keys(meta).length === 0
+	let metaString = `${!isEmptyMeta ? `meta() {
+		return {
+			title: "${meta.title}",
+			description: "${meta.description}"
+		}
+	}` : ''}`
+	if (options.script === 'typescript') {
+		data = Object.entries(data).reduce((dataString, [propName, propValue], currentIndex, items) => {
+			let value = propValue;
+			switch (typeOf(propValue)) {
+				case 'object':
+					value = JSON.stringify(propValue, undefined, 2)
+					break;
+				case 'array':
+					value = JSON.stringify(propValue)
+					break;
+				case 'string':
+					value = `"${value}"`
+					break;
+				default:
+					break;
+			}
+			return `${dataString}${propName}:${typeOf(propValue)} = ${value};\n`;
+		}, '')
+		return `
+			<script lang="typescript">
+				import { Component, Vue } from "vue-property-decorator";
+				
+				@Component({
+					components: {},
+					props: {}
+				})
+				export default class ${view} extends Vue {
+					${data}
+					${metaString}
+				}
+			</script>
+		`
+	}
 	return `
         <script>
             export default {
 				name: "${view}",
-                ${!isEmptyMeta ? `meta() {
-					return {
-						title: "${meta.title}",
-						description: "${meta.description}"
-					}
-				},` : ''}
-				data: function () {
+				${metaString ? metaString + ',\n' : ''}data: function () {
 					return ${JSON.stringify(data, undefined, 2)}
 				}				
             }
@@ -232,7 +286,7 @@ const generateFile = function ({
 	let fileContent = ""
 	const template = constructTemplate(dom, component, true, config)
 	const style = constructStyle(component, '', true)	
-	const script = constructScript(file, component.meta || {}, component.data)
+	const script = constructScript(file, component.meta || {}, component.data, config)
 	const flag = overwrite ? {} : { flag: "wx" };
 	fileContent += template
 	fileContent += style
@@ -272,7 +326,8 @@ const generate = function({
 					rootPath,
 					destinationPath,
 					cwd,
-					componentPath
+					componentPath,
+					config
 				})
 			} else {
 				console.info(`Please provide the right ${type} --path option`)

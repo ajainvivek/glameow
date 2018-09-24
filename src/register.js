@@ -25,9 +25,12 @@ const writeToFile = function({destination, fileContent}) {
     });
 };
 
-// import MyComponent from './component.vue'
-// Vue.component('my-component', MyComponent);
-
+/**
+ * @description register components to global file
+ *
+ * @param {String} filepath - path
+ * @param {String} file - filename
+ */
 const component = function({filepath, file}) {
     const filename = 'components.js';
     let destination = filepath.slice(0, filepath.indexOf('src/') + 4) + filename;
@@ -40,7 +43,6 @@ const component = function({filepath, file}) {
             if (err) {
                 throw err;
             }
-            const regex = /^(.*)(\r?\n\1)+$/gm;
             fileContent += data.toString();
             fileContent = fileContent
                 .toString()

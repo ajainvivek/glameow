@@ -5,7 +5,6 @@
 </p>
 <p align="center">CLI based <b>dynamic component or page</b> generation for Vue.js. No HTML or CSS just JSON to create UI.</p>
 
-
 ## Installation
 
 Glameow is available as an [npm package](https://www.npmjs.com/package/glameow).
@@ -37,6 +36,7 @@ glameow generate --help
 -o, --overwrite                 Overwrite existing files or default is false
 -c, --cwd                       Set base working directory or default to 'process.cwd()'
 -w, --watch                     Watch for file changes and update component/page instantaneously
+-sr, --skipRegister             Skip writing to globally registered components or default is false
 -h, --help                      Output usage information
 ```
 
@@ -78,14 +78,16 @@ Page is a template block which composes of multiple container or component block
         {
             "node": "container",
             "element": "div",
-            "children": [{
-                "node": "component",
-                "element": "input",
-                "properties": {
-                    "placeholder": "Please input",
-                    "v-model": "inputValue"
+            "children": [
+                {
+                    "node": "component",
+                    "element": "input",
+                    "properties": {
+                        "placeholder": "Please input",
+                        "v-model": "inputValue"
+                    }
                 }
-            }]
+            ]
         }
     ]
 }

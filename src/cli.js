@@ -9,6 +9,7 @@ var argv = require('minimist')(process.argv.slice(2), {
         o: 'overwrite',
         c: 'cwd',
         w: 'watch',
+        sr: 'skipRegister',
     },
 });
 var glameow = require('.');
@@ -45,6 +46,7 @@ var watchFileChanges = function({argv, cwd}) {
                     type: search('component', path) ? 'component' : 'page',
                     overwrite: true,
                     filepath: path,
+                    skipRegister: argv.skipRegister,
                 });
             }
         });
@@ -64,6 +66,7 @@ if (argv._[0] === 'generate' && argv.help) {
             -o, --overwrite                 Overwrite existing files or default is false
             -c, --cwd                       Set base working directory or default to 'process.cwd()'
             -w, --watch                     Watch for file changes and update the source code
+            -sr, --skipRegister             Skip writing to globally registered components or default is false
     `);
     return;
 }
@@ -89,6 +92,7 @@ if (argv._[0] !== 'generate') {
                 cwd,
                 type: argv._[1],
                 overwrite: argv.overwrite,
+                skipRegister: argv.skipRegister,
             });
         } else {
             glameow({
@@ -97,6 +101,7 @@ if (argv._[0] !== 'generate') {
                 cwd,
                 type: 'component',
                 overwrite: argv.overwrite,
+                skipRegister: argv.skipRegister,
             });
             glameow({
                 filepath,
@@ -104,6 +109,7 @@ if (argv._[0] !== 'generate') {
                 cwd,
                 type: 'page',
                 overwrite: argv.overwrite,
+                skipRegister: argv.skipRegister,
             });
         }
     } else {

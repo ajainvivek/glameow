@@ -278,7 +278,7 @@ const constructStyle = function(template, style = '', root = true) {
 /**
  * @description Generate file and write to disk
  */
-const generateFile = function({file, rootPath, destinationPath, overwrite, config = {}, filepath, type}) {
+const generateFile = function({file, rootPath, destinationPath, overwrite, config = {}, filepath, type, skipRegister}) {
     const dom = new JSDOM();
     file = file.replace(/\.[^/.]+$/, '');
     file = file.charAt(0).toUpperCase() + file.slice(1);
@@ -300,7 +300,7 @@ const generateFile = function({file, rootPath, destinationPath, overwrite, confi
             console.log(err.message);
             return;
         }
-        if (type === 'component') {
+        if (type === 'component' && !skipRegister) {
             // register component to global file
             register.component({
                 filepath: destinationPath,
@@ -314,7 +314,7 @@ const generateFile = function({file, rootPath, destinationPath, overwrite, confi
 /**
  * @description generate component/page
  */
-const generate = function({cwd, config, type, destination, overwrite, componentPath}) {
+const generate = function({cwd, config, type, destination, overwrite, componentPath, skipRegister}) {
     destination = destination
         ? destination
         : config.path && config.path.destination && config.path.destination[type]
@@ -335,6 +335,7 @@ const generate = function({cwd, config, type, destination, overwrite, componentP
                     componentPath,
                     config,
                     type,
+                    skipRegister,
                 });
             } else {
                 console.info(`Please provide the right ${type} --path option`);
@@ -354,6 +355,7 @@ const generate = function({cwd, config, type, destination, overwrite, componentP
                 overwrite,
                 config,
                 type,
+                skipRegister,
             });
         });
     });
@@ -362,7 +364,7 @@ const generate = function({cwd, config, type, destination, overwrite, componentP
 /**
  * @description glameow
  */
-const glameow = function({destination = '', cwd = '', type = 'component', overwrite = false, filepath}) {
+const glameow = function({destination = '', cwd = '', type = 'component', overwrite = false, filepath, skipRegister}) {
     cwd = `${cwd ? cwd + '/' : ''}`;
     const config = require(cwd + configFile);
 
@@ -373,6 +375,7 @@ const glameow = function({destination = '', cwd = '', type = 'component', overwr
         destination,
         overwrite,
         filepath,
+        skipRegister,
     });
 };
 

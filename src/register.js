@@ -17,12 +17,7 @@ const camelCaseToDash = function(myStr) {
  * @param {String} fileContent - string
  */
 const writeToFile = function({destination, fileContent}) {
-    fs.writeFile(destination, fileContent, {}, err => {
-        if (err) {
-            console.log(err.message);
-            return;
-        }
-    });
+    fs.writeFileSync(destination, fileContent);
 };
 
 /**

@@ -1,5 +1,6 @@
 const {JSDOM} = require('JSDOM');
 const fs = require('fs');
+const path = require('path');
 const mkdirp = require('mkdirp');
 const beautify = require('js-beautify');
 const prettier = require('prettier');
@@ -314,13 +315,13 @@ const generateFile = function({file, rootPath, destinationPath, overwrite, confi
 /**
  * @description generate component/page
  */
-const generate = function({cwd, config, type, destination, overwrite, componentPath, skipRegister}) {
+const generate = function({cwd, config, type, destination, overwrite, filepath, rootPath, skipRegister}) {
     destination = destination
         ? destination
         : config.path && config.path.destination && config.path.destination[type]
             ? config.path.destination[type]
             : '';
-    const rootPath = `${cwd}${configBasePath}/${type}`;
+    rootPath = rootPath || `${cwd}${configBasePath}/${type}`;
     const destinationPath = `${cwd}${destination ? destination : 'src/' + type + 's'}`;
 
     fs.readdir(rootPath, (err, files) => {
@@ -332,7 +333,7 @@ const generate = function({cwd, config, type, destination, overwrite, componentP
                     rootPath,
                     destinationPath,
                     cwd,
-                    componentPath,
+                    filepath,
                     config,
                     type,
                     skipRegister,
@@ -344,6 +345,19 @@ const generate = function({cwd, config, type, destination, overwrite, componentP
         }
         // if multiple files then iterate over path
         files.forEach(file => {
+            if (fs.statSync(path.join(rootPath, file)).isDirectory()) {
+                generate({
+                    cwd,
+                    config,
+                    type,
+                    destination: destination + '/' + file,
+                    overwrite,
+                    filepath,
+                    rootPath: rootPath + '/' + file,
+                    skipRegister,
+                });
+                return;
+            }
             mkdirp(destinationPath, err => {
                 if (err) console.error(err);
             });

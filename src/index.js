@@ -3,6 +3,7 @@ const fs = require('fs');
 const mkdirp = require('mkdirp');
 const beautify = require('js-beautify');
 const prettier = require('prettier');
+const register = require('./register');
 
 const templateReg = /<(?:\/)?template[\s\S]*?(?:lang="\s*(.*)\s*")?\s*>/gi;
 const scriptReg = /<(?:\/)?script[\s\S]*?(?:lang="\s*(.*)\s*")?\s*>/gi;
@@ -277,7 +278,7 @@ const constructStyle = function(template, style = '', root = true) {
 /**
  * @description Generate file and write to disk
  */
-const generateFile = function({file, rootPath, destinationPath, overwrite, config = {}, filepath}) {
+const generateFile = function({file, rootPath, destinationPath, overwrite, config = {}, filepath, type}) {
     const dom = new JSDOM();
     file = file.replace(/\.[^/.]+$/, '');
     file = file.charAt(0).toUpperCase() + file.slice(1);
@@ -298,6 +299,13 @@ const generateFile = function({file, rootPath, destinationPath, overwrite, confi
         if (err) {
             console.log(err.message);
             return;
+        }
+        if (type === 'component') {
+            // register component to global file
+            register.component({
+                filepath: destinationPath,
+                file,
+            });
         }
         console.info(`The ${file} was succesfully ${isFileExists ? 'updated' : 'created'}!`);
     });
@@ -326,6 +334,7 @@ const generate = function({cwd, config, type, destination, overwrite, componentP
                     cwd,
                     componentPath,
                     config,
+                    type,
                 });
             } else {
                 console.info(`Please provide the right ${type} --path option`);
@@ -344,6 +353,7 @@ const generate = function({cwd, config, type, destination, overwrite, componentP
                 cwd,
                 overwrite,
                 config,
+                type,
             });
         });
     });

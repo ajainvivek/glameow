@@ -21,13 +21,6 @@
         "precommit": "lint-staged",
         "prettier": "prettier \"**/*.{json,md,scss,yaml,yml}\""
     },
-    "eslintConfig": {
-        "extends": "eslint-config-developit",
-        "rules": {
-            "prefer-spread": 0,
-            "prefer-rest-params": 0
-        }
-    },
     "lint-staged": {
         "*.{js}": [
             "eslint --fix",

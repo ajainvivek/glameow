@@ -1,68 +1,68 @@
 {
-  "name": "glameow",
-  "version": "0.3.1",
-  "description": "JSON based dynamic component generation",
-  "main": "dist/glameow.js",
-  "source": "src/index.js",
-  "bin": "dist/cli.js",
-  "repository": "ajainvivek/glameow",
-  "scripts": {
-    "build": "npm run build:cli && npm run build:glameow && npm run copy:cli",
-    "build:cli": "microbundle --i src/{cli,index}.js --o dist/index.js --format cjs --compress false  --sourcemap false",
-    "build:glameow": "microbundle --i src/index.js --o dist --format cjs",
-    "copy:cli": "cp src/cli.js dist",
-    "prepublishOnly": "npm run build",
-    "gh-pages": "cd demo && npm run build && ./../node_modules/.bin/gh-pages -d dist",
-    "release": "npm t && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish",
-    "test": "echo \"Error: no test specified\" && exit 0",
-    "fix:other": "yarn prettier --write",
-    "fix:js": "yarn test:js --fix",
-    "fix": "yarn fix:js && yarn fix:other",
-    "precommit": "lint-staged",
-    "prettier": "prettier \"**/*.{json,md,scss,yaml,yml}\""
-  },
-  "eslintConfig": {
-    "extends": "eslint-config-developit",
-    "rules": {
-      "prefer-spread": 0,
-      "prefer-rest-params": 0
-    }
-  },
-  "lint-staged": {
-    "*.{js}": [
-      "eslint --fix",
-      "git add"
+    "name": "glameow",
+    "version": "0.3.2",
+    "description": "JSON based dynamic component generation",
+    "main": "dist/glameow.js",
+    "source": "src/index.js",
+    "bin": "dist/cli.js",
+    "repository": "ajainvivek/glameow",
+    "scripts": {
+        "build": "npm run build:cli && npm run build:glameow && npm run copy:cli",
+        "build:cli": "microbundle --i src/{cli,index}.js --o dist/index.js --format cjs --compress false  --sourcemap false",
+        "build:glameow": "microbundle --i src/index.js --o dist --format cjs",
+        "copy:cli": "cp src/cli.js dist",
+        "prepublishOnly": "npm run build",
+        "gh-pages": "cd demo && npm run build && ./../node_modules/.bin/gh-pages -d dist",
+        "release": "npm t && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish",
+        "test": "echo \"Error: no test specified\" && exit 0",
+        "fix:other": "yarn prettier --write",
+        "fix:js": "yarn test:js --fix",
+        "fix": "yarn fix:js && yarn fix:other",
+        "precommit": "lint-staged",
+        "prettier": "prettier \"**/*.{json,md,scss,yaml,yml}\""
+    },
+    "eslintConfig": {
+        "extends": "eslint-config-developit",
+        "rules": {
+            "prefer-spread": 0,
+            "prefer-rest-params": 0
+        }
+    },
+    "lint-staged": {
+        "*.{js}": [
+            "eslint --fix",
+            "git add"
+        ],
+        "*.{json,md,yaml,yml}": [
+            "prettier --write",
+            "git add"
+        ]
+    },
+    "files": [
+        "src",
+        "dist"
     ],
-    "*.{json,md,yaml,yml}": [
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "files": [
-    "src",
-    "dist"
-  ],
-  "keywords": [
-    "dynamic component",
-    "json component",
-    "vue component"
-  ],
-  "author": "Ajain Vivek <ajainvivek07@gmail.com> (http://chaicode.com)",
-  "license": "MIT",
-  "devDependencies": {
-    "eslint": "5.6.0",
-    "eslint-config-prettier": "3.1.0",
-    "eslint-plugin-prettier": "2.6.2",
-    "husky": "0.14.3",
-    "lint-staged": "7.3.0",
-    "prettier": "1.14.3"
-  },
-  "dependencies": {
-    "chokidar": "^2.0.4",
-    "js-beautify": "^1.8.1",
-    "jsdom": "^12.0.0",
-    "minimist": "^1.2.0",
-    "mkdirp": "^0.5.1",
-    "prettier": "^1.14.3"
-  }
+    "keywords": [
+        "dynamic component",
+        "json component",
+        "vue component"
+    ],
+    "author": "Ajain Vivek <ajainvivek07@gmail.com> (http://chaicode.com)",
+    "license": "MIT",
+    "devDependencies": {
+        "eslint": "5.6.0",
+        "eslint-config-prettier": "3.1.0",
+        "eslint-plugin-prettier": "2.6.2",
+        "husky": "0.14.3",
+        "lint-staged": "7.3.0",
+        "prettier": "1.14.3"
+    },
+    "dependencies": {
+        "chokidar": "^2.0.4",
+        "js-beautify": "^1.8.1",
+        "jsdom": "^12.0.0",
+        "minimist": "^1.2.0",
+        "mkdirp": "^0.5.1",
+        "prettier": "^1.14.3"
+    }
 }
